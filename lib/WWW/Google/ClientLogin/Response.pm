@@ -113,13 +113,13 @@ HTTP message or ClientLogin error message
 
   say $res->message;
 
-=item status_line
+=item status_line()
 
 C<< code >> and C<< message >>
 
   say $res->status_line; # eq say $res->code, ' ', $res->message;
 
-=item http_response
+=item http_response()
 
 Original HTTP Response object.
 
