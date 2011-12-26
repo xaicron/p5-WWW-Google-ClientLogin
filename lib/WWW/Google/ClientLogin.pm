@@ -92,15 +92,57 @@ __END__
 
 =head1 NAME
 
-WWW::Google::ClientLogin -
+WWW::Google::ClientLogin - Yet Another Google ClientLogin Client Library
 
 =head1 SYNOPSIS
 
   use WWW::Google::ClientLogin;
 
+  my $client = WWW::Google::ClientLogin->new(
+      email    => example@gmail.com
+      password => 'password',
+      service  => 'ac2dm',
+  );
+
+  my $res = $client->authenticate;
+  die $res->status_line if $res->has_error;
+
+  my $auth_token = $res->auth_token;
+
 =head1 DESCRIPTION
 
-WWW::Google::ClientLogin is
+WWW::Google::ClientLogin is a Google ClientLogin client.
+
+SEE ALSO L<< http://code.google.com/intl/ja/apis/accounts/docs/AuthForInstalledApps.html >>
+
+=head1 METHODS
+
+=over
+
+=item new(%args)
+
+Create a WWW::Google::ClientLogin instance.
+
+  my $client = WWW::Google::ClientLogin->new(
+      email        => example@gmail.com         # required
+      password     => 'password',               # required
+      service      => 'ac2dm',                  # required
+      type         => 'GOOGLE',                 # optional. default: HOSTED_OR_GOOGLE
+      source       => 'your-company_myapp_0.1', # optional. default: WWW::Google::ClientLogin_$VERSION
+      ua           => LWP::UserAgent->new(),    # optional. default: LWP::UserAgent
+      logintoken   => $logintoken,              # optional. default: unset
+      logincaptcha => $logincaptcha,            # optional. default: unset
+  );
+
+=item authenticate()
+
+Send authentication request for Google ClientLogin. Returned L<< WWW::Google::ClientLogin::Response >> object.
+
+  my $res = $client->authenticate;
+  die $res->status_line if $res->has_error;
+  my $auth_token = $res->auth_token;
+
+=back
 
 =head1 AUTHOR
 
@@ -116,5 +158,7 @@ This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
 
 =head1 SEE ALSO
+
+L<< WWW::Google::Auth::ClientLogin >>
 
 =cut
