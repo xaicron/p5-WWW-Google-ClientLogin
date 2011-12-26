@@ -126,7 +126,8 @@ subtest 'forbidden' => sub {
     ok !$res->is_success;
     ok $res->has_error;
     is $res->code, 403;
-    is $res->message, 'BadAuthentication';
+    is $res->message, 'Forbidden';
+    is $res->error_code, 'BadAuthentication';
     is $res->auth_token, undef;
     is $res->sid, undef;
     is $res->lsid, undef;
@@ -154,7 +155,8 @@ subtest 'forbidden (CaptchaRequired)' => sub {
     ok !$res->is_success;
     ok $res->has_error;
     is $res->code, 403;
-    is $res->message, 'CaptchaRequired';
+    is $res->message, 'Forbidden';
+    is $res->error_code, 'CaptchaRequired';
     ok $res->is_captcha_required;
     is $res->auth_token, undef;
     is $res->sid, undef;

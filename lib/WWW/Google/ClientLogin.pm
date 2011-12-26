@@ -28,7 +28,7 @@ sub new {
 
 sub authenticate {
     my $self = shift;
-    my $res = $self->{ua}->post($URL, Content => [
+    my $http_response = $self->{ua}->post($URL, Content => [
         accountType => $self->{type},
         Email       => $self->{email},
         Passwd      => $self->{password},
@@ -38,15 +38,13 @@ sub authenticate {
         $self->{logincaptcha} ? (logincaptcha => $self->{logincaptcha}) : (),
     ]);
 
-    my $result;
-    if ($res->is_success) {
-        my $content = $res->content;
+    my $res;
+    if ($http_response->is_success) {
+        my $content = $http_response->content;
         my $params = { map { split '=', $_, 2 } split /\n/, $content };
-        $result = WWW::Google::ClientLogin::Response->new(
+        $res = WWW::Google::ClientLogin::Response->new(
             is_success    => 1,
-            code          => $res->code,
-            message       => $res->message,
-            http_response => $res,
+            http_response => $http_response,
             params        => {
                 auth_token => $params->{Auth},
                 sid        => $params->{SID},
@@ -54,33 +52,30 @@ sub authenticate {
             },
         );
     }
-    elsif ($res->code == 403) {
-        my $content = $res->content;
+    elsif ($http_response->code == 403) {
+        my $content = $http_response->content;
         my $params = { map { split '=', $_, 2 } split /\n/, $content };
-        $result = WWW::Google::ClientLogin::Response->new(
+        $res = WWW::Google::ClientLogin::Response->new(
             is_success    => 0,
-            http_response => $res,
-            code          => $res->code,
-            message       => $params->{Error},
+            http_response => $http_response,
+            error_code    => $params->{Error},
         );
         if ($params->{Error} eq 'CaptchaRequired') {
-            $result->{is_captcha_required} = 1;
-            $result->{params} = {
+            $res->{is_captcha_required} = 1;
+            $res->{params} = {
                 captcha_token => $params->{CaptchaToken},
                 captcha_url   => $params->{CaptchaUrl},
             };
         }
     }
     else {
-        $result = WWW::Google::ClientLogin::Response->new(
+        $res = WWW::Google::ClientLogin::Response->new(
             is_success    => 0,
-            http_response => $res,
-            code          => $res->code,
-            message       => $res->message,
+            http_response => $http_response,
         );
    }
 
-   return $result;
+   return $res;
 }
 
 1;

@@ -18,11 +18,11 @@ sub has_error {
 }
 
 sub code {
-    $_[0]->{code};
+    $_[0]->http_response->code;
 }
 
 sub message {
-    $_[0]->{message};
+    $_[0]->http_response->message;
 }
 
 sub status_line {
@@ -32,6 +32,10 @@ sub status_line {
 
 sub http_response {
     $_[0]->{http_response};
+}
+
+sub error_code {
+    $_[0]->{error_code} || '';
 }
 
 sub params {
@@ -126,6 +130,14 @@ Original HTTP Response object.
   my $http_response = $res->http_response;
   say $http_response->as_string;
 
+=item error_code()
+
+Response error code. SEE ALSO L<< http://code.google.com/intl/ja/apis/accounts/docs/AuthForInstalledApps.html#Errors >>
+
+  if ($res->error_code eq 'BadAuthentication') {
+      ...
+  }
+
 =item auth_token()
 
   say $res->auth_token;
@@ -149,6 +161,12 @@ Original HTTP Response object.
 =item captcha_url()
 
   my $captcha_url = $res->captcha_url;
+
+=item params()
+
+Response parameters in HASHREF
+
+  say $res->params->{auth_token};
 
 =back
 
