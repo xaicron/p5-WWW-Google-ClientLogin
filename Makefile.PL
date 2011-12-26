@@ -6,7 +6,7 @@ all_from 'lib/WWW/Google/ClientLogin.pm';
 
 requires 'Carp';
 requires 'LWP::UserAgent';
-requires 'LWP::protocol::https';
+requires 'LWP::Protocol::https';
 
 test_requires 'Test::More', 0.98;
 test_requires 'Test::Fake::HTTPD', 0.03;
