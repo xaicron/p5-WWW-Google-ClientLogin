@@ -89,7 +89,7 @@ WWW::Google::ClientLogin::Response - Response Object
 
 =head1 DESCRIPTION
 
-WWW::Google::ClientLogin::Response is a WWW::Google::ClientLogin intarnal class.
+WWW::Google::ClientLogin::Response is a WWW::Google::ClientLogin internal class.
 
 =head1 METHODS
 

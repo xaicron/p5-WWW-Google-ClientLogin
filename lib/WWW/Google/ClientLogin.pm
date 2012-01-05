@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use Carp ();
 use LWP::UserAgent;
-use LWP::protocol::https; # preload
+use LWP::Protocol::https; # preload
 
 use WWW::Google::ClientLogin::Response;
 
