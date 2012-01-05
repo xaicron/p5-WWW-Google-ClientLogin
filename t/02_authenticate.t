@@ -41,7 +41,7 @@ sub create_response {
     my ($code, $content) = @_;
     return [$code, [
         'Content-Length' => length($content),
-        'Content-Type'   => 'application/x-www-form-urlencoded',
+        'Content-Type'   => 'text/plain',
     ], [$content]];
 }
 
