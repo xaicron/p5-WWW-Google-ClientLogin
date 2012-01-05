@@ -33,6 +33,11 @@ __DATA__
 WWW::Google::ClientLogin
 HTTP
 internal
+CAPTCHA
+Str
+logintoken
+logincaptcha
+ua
 
 # personal section
 xaicron

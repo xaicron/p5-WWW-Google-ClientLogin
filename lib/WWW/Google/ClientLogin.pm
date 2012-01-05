@@ -110,34 +110,68 @@ WWW::Google::ClientLogin is a Google ClientLogin client.
 
 SEE ALSO L<< http://code.google.com/intl/ja/apis/accounts/docs/AuthForInstalledApps.html >>
 
+Why I wrote this module? I know L<< WWW::Google::Auth::ClientLogin >> module already exists, but I feel the return value is difficult to use.
+I want a response object.
+
 =head1 METHODS
 
-=over
-
-=item new(%args)
+=head2 new(%args)
 
 Create a WWW::Google::ClientLogin instance.
 
   my $client = WWW::Google::ClientLogin->new(
-      email        => example@gmail.com         # required
-      password     => 'password',               # required
-      service      => 'ac2dm',                  # required
-      type         => 'GOOGLE',                 # optional. default: HOSTED_OR_GOOGLE
-      source       => 'your-company_myapp_0.1', # optional. default: WWW::Google::ClientLogin_$VERSION
-      ua           => LWP::UserAgent->new(),    # optional. default: LWP::UserAgent
-      logintoken   => $logintoken,              # optional. default: unset
-      logincaptcha => $logincaptcha,            # optional. default: unset
+      email        => example@gmail.com,
+      password     => 'password',
+      service      => 'ac2dm',
   );
 
-=item authenticate()
+Supported options are:
+
+=over 4
+
+=item email : Str
+
+Required. User's full email address. It must include the domain (i.e. johndoe@gmail.com).
+
+=item password : Str
+
+Required. User's password.
+
+=item service : Str
+
+Required. Each service using the Authorization service is assigned a name value. for example, the name associated with Google Calendar is 'cl'.
+
+=item type : Str
+
+Optional. Type of account to request authorization. default type is C<< HOSTED_OR_GOOGLE >>.
+
+=item source : Str
+
+Optional. Short string identifying your application, for logging purposes.
+
+=item logintoken : Str
+
+Optional. Token representing the specific CAPTCHA challenge.
+
+=item logincaptcha : Str
+
+Optional. String entered by the user as an answer to a CAPTCHA challenge.
+
+=item ua : LWP::UserAgent
+
+Optional.
+
+=back
+
+SEE ALSO L<< http://code.google.com/intl/ja/apis/accounts/docs/AuthForInstalledApps.html#Request >>.
+
+=head2 authenticate()
 
 Send authentication request for Google ClientLogin. Returned L<< WWW::Google::ClientLogin::Response >> object.
 
   my $res = $client->authenticate;
-  die $res->status_line if $res->has_error;
+  die $res->error_code if $res->has_error;
   my $auth_token = $res->auth_token;
-
-=back
 
 =head1 AUTHOR
 
