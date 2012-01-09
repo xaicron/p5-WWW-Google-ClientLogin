@@ -5,6 +5,7 @@ use warnings;
 use Carp ();
 use LWP::UserAgent;
 use LWP::Protocol::https; # preload
+use HTTP::Request::Common qw(POST);
 
 use WWW::Google::ClientLogin::Response;
 
@@ -28,7 +29,7 @@ sub new {
 
 sub authenticate {
     my $self = shift;
-    my $http_response = $self->{ua}->post($URL, Content => [
+    my $http_request = POST $URL, [
         accountType => $self->{type},
         Email       => $self->{email},
         Passwd      => $self->{password},
@@ -36,7 +37,8 @@ sub authenticate {
         source      => $self->{source},
         $self->{logintoken}   ? (logintoken   => $self->{logintoken})   : (),
         $self->{logincaptcha} ? (logincaptcha => $self->{logincaptcha}) : (),
-    ]);
+    ];
+    my $http_response = $self->{ua}->request($http_request);
 
     my $res;
     if ($http_response->is_success) {
