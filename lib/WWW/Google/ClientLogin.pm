@@ -94,7 +94,7 @@ WWW::Google::ClientLogin - Yet Another Google ClientLogin Client Library
   use WWW::Google::ClientLogin;
 
   my $client = WWW::Google::ClientLogin->new(
-      email    => example@gmail.com
+      email    => 'example@gmail.com',
       password => 'password',
       service  => 'ac2dm',
   );
@@ -139,7 +139,7 @@ Required. User's password.
 
 =item service : Str
 
-Required. Each service using the Authorization service is assigned a name value. for example, the name associated with Google Calendar is 'cl'.
+Required. Each service using the Authorization service is assigned a name value. for example, the name associated with Google Calendar is C<< 'cl' >>.
 
 =item type : Str
 
