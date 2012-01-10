@@ -1,4 +1,8 @@
 Revision history for Perl extension WWW::Google::ClientLogin
 
+0.02  Tue Jan 10 20:16:23 2012
+    - fix doc
+    - using HTTP::Request::Common (maybe support Furl)
+
 0.01  Thu Jan  5 20:10:52 2012
     - first release
