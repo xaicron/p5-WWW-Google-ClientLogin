@@ -16,6 +16,7 @@ sub is_success {
 sub has_error {
     !$_[0]->is_success;
 }
+*is_error = *has_error;
 
 sub code {
     $_[0]->http_response->code;
@@ -100,6 +101,10 @@ WWW::Google::ClientLogin::Response is a WWW::Google::ClientLogin internal class.
 =item is_success()
 
   $res->is_success ? 1 : 0;
+
+=item is_error()
+
+  $res->is_error 1 : 0;
 
 =item has_error()
 

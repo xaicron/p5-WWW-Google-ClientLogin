@@ -65,6 +65,7 @@ subtest 'success' => sub {
 
     isa_ok $res, 'WWW::Google::ClientLogin::Response';
     ok $res->is_success;
+    ok !$res->is_error;
     ok !$res->has_error;
     is $res->code, 200;
     is $res->message, 'OK';
@@ -98,6 +99,7 @@ subtest 'success with captcha' => sub {
 
     isa_ok $res, 'WWW::Google::ClientLogin::Response';
     ok $res->is_success;
+    ok !$res->is_error;
     ok !$res->has_error;
     is $res->code, 200;
     is $res->message, 'OK';
@@ -124,6 +126,7 @@ subtest 'forbidden' => sub {
 
     isa_ok $res, 'WWW::Google::ClientLogin::Response';
     ok !$res->is_success;
+    ok $res->is_error;
     ok $res->has_error;
     is $res->code, 403;
     is $res->message, 'Forbidden';
@@ -153,6 +156,7 @@ subtest 'forbidden (CaptchaRequired)' => sub {
 
     isa_ok $res, 'WWW::Google::ClientLogin::Response';
     ok !$res->is_success;
+    ok $res->is_error;
     ok $res->has_error;
     is $res->code, 403;
     is $res->message, 'Forbidden';
@@ -180,6 +184,7 @@ subtest 'internal server error' => sub {
 
     isa_ok $res, 'WWW::Google::ClientLogin::Response';
     ok !$res->is_success;
+    ok $res->is_error;
     ok $res->has_error;
     is $res->code, 500;
     is $res->message, 'Internal Server Error';
