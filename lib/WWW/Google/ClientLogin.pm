@@ -110,7 +110,7 @@ WWW::Google::ClientLogin - Yet Another Google ClientLogin Client Library
 
 WWW::Google::ClientLogin is a Google ClientLogin client.
 
-SEE ALSO L<< http://code.google.com/intl/ja/apis/accounts/docs/AuthForInstalledApps.html >>
+SEE ALSO L<< http://code.google.com/intl/us/apis/accounts/docs/AuthForInstalledApps.html >>
 
 Why I wrote this module? I know L<< WWW::Google::Auth::ClientLogin >> module already exists, but I feel the return value is difficult to use.
 I want a response object.
@@ -165,7 +165,7 @@ Optional.
 
 =back
 
-SEE ALSO L<< http://code.google.com/intl/ja/apis/accounts/docs/AuthForInstalledApps.html#Request >>.
+SEE ALSO L<< http://code.google.com/intl/us/apis/accounts/docs/AuthForInstalledApps.html#Request >>.
 
 =head2 authenticate()
 
