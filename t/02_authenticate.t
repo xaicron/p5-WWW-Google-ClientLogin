@@ -6,6 +6,7 @@ use Test::SharedFork;
 use Test::Fake::HTTPD;
 use URI::Escape;
 use WWW::Google::ClientLogin;
+use WWW::Google::ClientLogin::Constants;
 
 plan skip_all => 'THIS TEST IS NOT SUPPORTED ON YOUR OS' if $^O eq 'MSWin32';
 
@@ -130,7 +131,7 @@ subtest 'forbidden' => sub {
     ok $res->has_error;
     is $res->code, 403;
     is $res->message, 'Forbidden';
-    is $res->error_code, 'BadAuthentication';
+    is $res->error_code, BadAuthentication;
     is $res->auth_token, undef;
     is $res->sid, undef;
     is $res->lsid, undef;
@@ -160,7 +161,7 @@ subtest 'forbidden (CaptchaRequired)' => sub {
     ok $res->has_error;
     is $res->code, 403;
     is $res->message, 'Forbidden';
-    is $res->error_code, 'CaptchaRequired';
+    is $res->error_code, CaptchaRequired;
     ok $res->is_captcha_required;
     is $res->auth_token, undef;
     is $res->sid, undef;

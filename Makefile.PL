@@ -8,6 +8,7 @@ requires 'Carp';
 requires 'LWP::UserAgent';
 requires 'LWP::Protocol::https';
 requires 'HTTP::Request::Common';
+requires 'parent';
 
 test_requires 'Test::More', 0.98;
 test_requires 'Test::Fake::HTTPD', 0.03;
