@@ -10,7 +10,7 @@ use HTTP::Request::Common qw(POST);
 use WWW::Google::ClientLogin::Response;
 
 use 5.008_001;
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 our $URL = 'https://www.google.com/accounts/ClientLogin';
 
