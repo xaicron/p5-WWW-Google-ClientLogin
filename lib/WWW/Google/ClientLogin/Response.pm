@@ -34,6 +34,7 @@ sub status_line {
 sub http_response {
     $_[0]->{http_response};
 }
+*res = *http_response;
 
 sub error_code {
     $_[0]->{error_code} || '';
@@ -94,86 +95,89 @@ WWW::Google::ClientLogin::Response is a WWW::Google::ClientLogin internal class.
 
 =head1 METHODS
 
-=over
+=head2 new(%args)
 
-=item new(%args)
+Creates a new instance.
 
-=item is_success()
+=head2 is_success()
 
   $res->is_success ? 1 : 0;
 
-=item is_error()
+=head2 is_error()
 
   $res->is_error 1 : 0;
 
-=item has_error()
+=head2 has_error()
 
-  $res->has_error ? 1 : 0;
+Alias of C<< is_error() >>.
 
-=item code()
+=head2 code()
 
 HTTP Response code.
 
   say $res->code;
 
-=item message()
+=head2 message()
 
 HTTP message or ClientLogin error message
 
   say $res->message;
 
-=item status_line()
+=head2 status_line()
 
-C<< code >> and C<< message >>
+Return value is a string that contains the C<< code() >> and C<< message() >>.
 
   say $res->status_line; # eq say $res->code, ' ', $res->message;
 
-=item http_response()
+=head2 http_response()
 
 Original HTTP Response object.
 
   my $http_response = $res->http_response;
   say $http_response->as_string;
 
-=item error_code()
+=head2 res()
 
-Response error code. SEE ALSO L<< http://code.google.com/intl/ja/apis/accounts/docs/AuthForInstalledApps.html#Errors >>
+Alias of C<< http_response() >>.
 
-  if ($res->error_code eq 'BadAuthentication') {
+=head2 error_code()
+
+Response error code. SEE ALSO L<< http://code.google.com/intl/en/apis/accounts/docs/AuthForInstalledApps.html#Errors >>
+
+  use WWW::Google::ClientLogin::Constants;
+  if ($res->error_code eq BadAuthentication) {
       ...
   }
 
-=item auth_token()
+=head2 auth_token()
 
   say $res->auth_token;
 
-=item sid()
+=head2 sid()
 
   say $res->sid;
 
-=item lsid()
+=head2 lsid()
 
   say $res->lsid;
 
-=item is_captcha_required()
+=head2 is_captcha_required()
 
   $res->is_captcha_required ? 1 : 0;
 
-=item captcha_token()
+=head2 captcha_token()
 
   my $captcha_token = $res->captcha_token;
 
-=item captcha_url()
+=head2 captcha_url()
 
   my $captcha_url = $res->captcha_url;
 
-=item params()
+=head2 params()
 
 Response parameters in HASHREF
 
   say $res->params->{auth_token};
-
-=back
 
 =head1 AUTHOR
 
